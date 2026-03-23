@@ -11,11 +11,11 @@ import Solutions from './pages/Solutions';
 function App() {
   return (
     <Router>
-      <div className="min-h-screen flex flex-col pt-16 font-sans">
+      <div className="flex flex-col min-h-screen pt-16 font-sans">
         <Navbar />
         <main className="flex-grow">
           <Routes>
-            <Route path="/" element={<Home />} />
+            <Route path="/NCP-COMMERCE" element={<Home />} />
             <Route path="/national" element={<NationalLevel />} />
             <Route path="/zone" element={<Zone />} />
             <Route path="/schools" element={<Schools />} />
