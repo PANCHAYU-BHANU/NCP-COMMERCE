@@ -1,9 +1,7 @@
-import { motion, useScroll, useTransform, useMotionValueEvent } from 'framer-motion';
-import { useRef, useState } from 'react';
+import { motion } from 'framer-motion';
+import { useCallback, useEffect, useRef, useState } from 'react';
 import { Link } from 'react-router-dom';
 import logoUrl from '../assets/logo.jpg';
-import Map from 'react-map-gl/maplibre';
-import 'maplibre-gl/dist/maplibre-gl.css';
 
 const navItems = [
   { name: 'ජාතික මට්ටම', path: '/national' },
@@ -14,39 +12,73 @@ const navItems = [
 ];
 
 export default function Home() {
-  const containerRef = useRef(null);
-  const { scrollYProgress } = useScroll({
-    target: containerRef,
-    offset: ["start start", "end end"]
-  });
+  const videoSectionRef = useRef(null);
+  const videoRef = useRef(null);
+  const finalSectionRef = useRef(null);
+  const [showFinalSection, setShowFinalSection] = useState(false);
+  const [isVideoInView, setIsVideoInView] = useState(false);
+  const [autoplayBlocked, setAutoplayBlocked] = useState(false);
+  const videoSrc = `${import.meta.env.BASE_URL}home-intro.mp4`;
 
-  // Map Animation Sequence mapping scroll progress (0 - 1.0)
-  // [0] World -> [0.45] Sri Lanka -> [1.0] Hingurakgoda, Polonnaruwa
-  const targetZoom = useTransform(scrollYProgress, [0, 0.45, 1], [0.6, 6.5, 10.5]);
-  const targetLat = useTransform(scrollYProgress, [0, 0.45, 1], [25.36385, 7.8731, 8.0496]);
-  const targetLng = useTransform(scrollYProgress, [0, 0.45, 1], [26.06358, 80.7718, 80.9701]);
+  const tryPlayVideo = useCallback(() => {
+    const videoNode = videoRef.current;
 
-  const [viewState, setViewState] = useState({
-    longitude: 26.06358,
-    latitude: 25.36385,
-    zoom: 0.6
-  });
+    if (!videoNode || showFinalSection) {
+      return;
+    }
 
-  // Listen to the targetZoom transform changes which correlate directly to scroll progress
-  useMotionValueEvent(targetZoom, "change", (latest) => {
-    setViewState({
-      longitude: targetLng.get(),
-      latitude: targetLat.get(),
-      zoom: latest
-    });
-  });
+    videoNode.play()
+      .then(() => {
+        setAutoplayBlocked(false);
+      })
+      .catch(() => {
+        setAutoplayBlocked(true);
+      });
+  }, [showFinalSection]);
 
-  // New Topic & Buttons Sequence (0.85 - 1.0)
-  const finalOpacity = useTransform(scrollYProgress, [0.85, 1], [0, 1]);
-  const finalY = useTransform(scrollYProgress, [0.85, 1], [50, 0]);
+  useEffect(() => {
+    const sectionNode = videoSectionRef.current;
+    const videoNode = videoRef.current;
+
+    if (!sectionNode || !videoNode) {
+      return undefined;
+    }
+
+    const observer = new IntersectionObserver(
+      ([entry]) => {
+        setIsVideoInView(entry.isIntersecting);
+        if (entry.isIntersecting && !showFinalSection) {
+          tryPlayVideo();
+        }
+      },
+      { threshold: 0.45 }
+    );
+
+    observer.observe(sectionNode);
+
+    return () => {
+      observer.disconnect();
+    };
+  }, [showFinalSection, tryPlayVideo]);
+
+  useEffect(() => {
+    if (isVideoInView && !showFinalSection) {
+      tryPlayVideo();
+    }
+  }, [isVideoInView, showFinalSection, tryPlayVideo]);
+
+  const handleVideoEnded = () => {
+    setShowFinalSection(true);
+  };
+
+  useEffect(() => {
+    if (showFinalSection && finalSectionRef.current) {
+      finalSectionRef.current.scrollIntoView({ behavior: 'smooth', block: 'start' });
+    }
+  }, [showFinalSection]);
 
   return (
-    <div className="w-full bg-background relative">
+    <div className="relative w-full bg-background">
 
       {/* Sticky Initial View: Stays fixed so the map pops up over it */}
       <div className="sticky top-16 h-[calc(100vh-4rem)] flex flex-col items-center justify-center p-4 z-0">
@@ -56,69 +88,91 @@ export default function Home() {
         <motion.div
           animate={{ y: [0, 10, 0] }}
           transition={{ duration: 1.5, repeat: Infinity }}
-          className="mt-16 opacity-50 flex flex-col items-center"
+          className="flex flex-col items-center mt-16 opacity-50"
         >
-          <span className="text-slate-400 mb-3 tracking-widest text-sm uppercase">Scroll Down</span>
-          <div className="w-7 h-12 border-2 border-slate-400 rounded-full flex justify-center p-1">
+          <span className="mb-3 text-sm tracking-widest uppercase text-slate-400">Scroll Down</span>
+          <div className="flex justify-center h-12 p-1 border-2 rounded-full w-7 border-slate-400">
             <div className="w-1.5 h-3 bg-slate-400 rounded-full mt-1" />
           </div>
         </motion.div>
       </div>
 
-      {/* Map Section slides up OVER the initial view */}
-      <div ref={containerRef} className="relative min-h-[400vh] w-full z-10 bg-background shadow-[0_-20px_50px_rgba(0,0,0,0.5)]">
-        <div className="sticky top-16 h-[calc(100vh-4rem)] flex flex-col items-center justify-center overflow-hidden w-full">
-
-          <div className="absolute inset-0 w-full h-full z-10 transition-opacity duration-500">
-            <Map
-              {...viewState}
-              onMove={evt => setViewState(evt.viewState)}
-              mapStyle="https://api.maptiler.com/maps/topo-v4/style.json?key=J0F7TKrMgIrdXNixtJo8"
-              interactive={false} /* Disabled manual zooming, map controlled entirely by scrolling */
+      {/* Video section starts on scroll and reveals final section after video ends */}
+      <section
+        ref={videoSectionRef}
+        className="relative min-h-[calc(100vh-4rem)] w-full z-10 bg-background shadow-[0_-20px_50px_rgba(0,0,0,0.5)]"
+      >
+        <div className="sticky top-16 h-[calc(100vh-4rem)] flex items-center justify-center overflow-hidden w-full px-4">
+          <div className="relative w-full max-w-6xl overflow-hidden border shadow-2xl aspect-video rounded-2xl border-white/10 shadow-black/60 bg-slate-950">
+            <video
+              ref={videoRef}
+              className="object-cover w-full h-full"
+              src={videoSrc}
+              muted
+              playsInline
+              preload="metadata"
+              controls={autoplayBlocked}
+              onEnded={handleVideoEnded}
+              onError={() => setShowFinalSection(true)}
             />
-            {/* Abstract dark overlay to blend the map slightly with the dark theme */}
-            <div className="absolute inset-0 bg-slate-900/40 pointer-events-none" />
+
+            {autoplayBlocked && !showFinalSection && (
+              <button
+                type="button"
+                onClick={tryPlayVideo}
+                className="absolute inset-x-0 px-5 py-2 mx-auto border rounded-full bottom-6 w-fit bg-slate-900/80 text-slate-100 border-white/20 backdrop-blur-sm"
+              >
+                Tap to play video
+              </button>
+            )}
           </div>
 
-          {/* Stage 3: Final Topic & Buttons */}
-          <motion.div
-            style={{ opacity: finalOpacity, y: finalY }}
-            className="absolute inset-0 flex flex-col items-center justify-center z-30 bg-background/70 backdrop-blur-md p-4 pointer-events-auto"
-          >
-            <h1 className="text-5xl md:text-7xl font-bold text-transparent bg-clip-text bg-gradient-to-r from-accent to-primary mb-10 text-center drop-shadow-xl">
-              උතුරු මැද පළාත
-            </h1>
-
-            {/* Logo Section */}
-            <div className="flex flex-col items-center mb-16 bg-surface/80 p-10 rounded-3xl border border-white/10 shadow-[0_0_30px_rgba(56,189,248,0.15)] backdrop-blur-md">
-              <div className="w-32 h-32 rounded-full flex items-center justify-center mb-6 shadow-2xl border-4 border-surface overflow-hidden">
-                <img src={logoUrl} alt="Commerce NCP" className="w-full h-full object-cover shadow-inner" />
-              </div>
-              <h3 className="text-3xl font-extrabold text-white mb-2 tracking-wide block">Commerce NCP</h3>
-              <h4 className="text-2xl font-bold text-primary mb-3">වාණිජ අංශය</h4>
-              <p className="text-slate-400 text-center max-w-sm text-lg font-medium leading-relaxed">
-                උතුරුමැද පළාත් අධ්‍යාපන දෙපාර්තමේන්තුව
-              </p>
+          {!showFinalSection && (
+            <div className="absolute px-4 py-2 text-sm -translate-x-1/2 border rounded-full bottom-8 left-1/2 md:text-base text-slate-300 bg-slate-900/70 border-white/10 backdrop-blur-sm">
+              Scroll to play video
             </div>
-
-            {/* Buttons */}
-            <div className="flex flex-wrap justify-center gap-4 md:gap-6 max-w-5xl">
-              {navItems.map((item, index) => (
-                <Link key={index} to={item.path}>
-                  <motion.button
-                    whileHover={{ scale: 1.05, y: -2 }}
-                    whileTap={{ scale: 0.95 }}
-                    className="px-8 py-4 bg-surface/50 border border-white/10 hover:border-primary/50 hover:bg-primary/10 rounded-2xl text-slate-200 font-bold transition-all duration-300 shadow-lg text-lg backdrop-blur-sm shadow-black/50"
-                  >
-                    {item.name}
-                  </motion.button>
-                </Link>
-              ))}
-            </div>
-          </motion.div>
-
+          )}
         </div>
-      </div>
+      </section>
+
+      {showFinalSection && (
+        <motion.section
+          ref={finalSectionRef}
+          initial={{ opacity: 0, y: 40 }}
+          animate={{ opacity: 1, y: 0 }}
+          transition={{ duration: 0.7, ease: 'easeOut' }}
+          className="relative min-h-[calc(100vh-4rem)] flex flex-col items-center justify-center z-20 bg-background/90 backdrop-blur-md p-4"
+        >
+          <h1 className="mb-10 text-5xl font-bold text-center text-transparent md:text-7xl bg-clip-text bg-gradient-to-r from-accent to-primary drop-shadow-xl">
+            උතුරු මැද පළාත
+          </h1>
+
+          <div className="flex flex-col items-center mb-16 bg-surface/80 p-10 rounded-3xl border border-white/10 shadow-[0_0_30px_rgba(56,189,248,0.15)] backdrop-blur-md">
+            <div className="flex items-center justify-center w-32 h-32 mb-6 overflow-hidden border-4 rounded-full shadow-2xl border-surface">
+              <img src={logoUrl} alt="Commerce NCP" className="object-cover w-full h-full shadow-inner" />
+            </div>
+            <h3 className="block mb-2 text-3xl font-extrabold tracking-wide text-white">Commerce NCP</h3>
+            <h4 className="mb-3 text-2xl font-bold text-primary">වාණිජ අංශය</h4>
+            <p className="max-w-sm text-lg font-medium leading-relaxed text-center text-slate-400">
+              උතුරුමැද පළාත් අධ්‍යාපන දෙපාර්තමේන්තුව
+            </p>
+          </div>
+
+          <div className="flex flex-wrap justify-center max-w-5xl gap-4 md:gap-6">
+            {navItems.map((item, index) => (
+              <Link key={index} to={item.path}>
+                <motion.button
+                  whileHover={{ scale: 1.05, y: -2 }}
+                  whileTap={{ scale: 0.95 }}
+                  className="px-8 py-4 text-lg font-bold transition-all duration-300 border shadow-lg bg-surface/50 border-white/10 hover:border-primary/50 hover:bg-primary/10 rounded-2xl text-slate-200 backdrop-blur-sm shadow-black/50"
+                >
+                  {item.name}
+                </motion.button>
+              </Link>
+            ))}
+          </div>
+        </motion.section>
+      )}
     </div>
   );
 }
