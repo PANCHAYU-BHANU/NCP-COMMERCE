@@ -10,11 +10,11 @@ const divisionsData = [
     border: "border-emerald-500/30",
     text: "text-emerald-400",
     schools: [
-      { name: "ආනන්ද බාලිකා ම. වි", girls: 30, boys: 0, total26: 30, total25: 19, pass: "66.67" },
-      { name: "ගිරිතලේගම ජාතික පාසල", girls: 5, boys: 4, total26: 5, total25: 6, pass: "61.90" },
-      { name: "මින්නේරිය ම. වි", girls: 14, boys: 27, total26: 52, total25: 32, pass: "46.15" },
-      { name: "රජරට ම. වි", girls: 21, boys: 40, total26: 21, total25: 8, pass: "66.67" },
-      { name: "නාගලකන්ද ජාතික පාසල", girls: 0, boys: 1, total26: 1, total25: 1, pass: "83.33" },
+      { name: "ආනන්ද බාලිකා ම. වි", teachers: 2, girls: 30, boys: 0, total26: 30, total25: 19, pass: "66.67" },
+      { name: "ගිරිතලේගම ජාතික පාසල", teachers: 3, girls: 5, boys: 4, total26: 5, total25: 6, pass: "61.90" },
+      { name: "මින්නේරිය ම. වි", teachers: 3, girls: 14, boys: 27, total26: 52, total25: 32, pass: "46.15" },
+      { name: "රජරට ම. වි", teachers: 4, girls: 21, boys: 40, total26: 21, total25: 8, pass: "66.67" },
+      { name: "නාගලකන්ද ජාතික පාසල", teachers: "-", girls: 0, boys: 1, total26: 1, total25: 1, pass: "83.33" },
     ]
   },
   {
@@ -24,12 +24,12 @@ const divisionsData = [
     border: "border-blue-500/30",
     text: "text-blue-400",
     schools: [
-      { name: "මැදිරිගිරිය ම. ම. වි", girls: 43, boys: 43, total26: 86, total25: 96, pass: "N/A" },
-      { name: "දිවුලන්කඩවල ම. වි", girls: 33, boys: 32, total26: 51, total25: 27, pass: "50.94" },
-      { name: "විජයපුර ම. වි", girls: 3, boys: 7, total26: 15, total25: 6, pass: "66.67" },
-      { name: "කවුඩුලුවැව ම. වි", girls: "-", boys: "-", total26: 4, total25: 10, pass: "31.25" },
-      { name: "මණ්ඩලගිරිය ම. වි", girls: 5, boys: 1, total26: 8, total25: 6, pass: "100.0" },
-      { name: "කවුඩුල්ල ම. වි", girls: "-", boys: "-", total26: 12, total25: 2, pass: "61.54" },
+      { name: "මැදිරිගිරිය ම. ම. වි", teachers: 1, girls: 43, boys: 43, total26: 86, total25: 96, pass: "60.20" },
+      { name: "දිවුලන්කඩවල ම. වි", teachers: 3, girls: 33, boys: 32, total26: 51, total25: 27, pass: "50.94" },
+      { name: "විජයපුර ම. වි", teachers: 3, girls: 3, boys: 7, total26: 15, total25: 6, pass: "66.67" },
+      { name: "කවුඩුලුවැව ම. වි", teachers: 1, girls: "-", boys: "-", total26: 4, total25: 10, pass: "31.25" },
+      { name: "මණ්ඩලගිරිය ම. වි", teachers: 3, girls: 5, boys: 1, total26: 8, total25: 6, pass: "100.0" },
+      { name: "කවුඩුල්ල ම. වි", teachers: 3, girls: "-", boys: "-", total26: 12, total25: 2, pass: "61.54" },
     ]
   },
   {
@@ -39,10 +39,10 @@ const divisionsData = [
     border: "border-purple-500/30",
     text: "text-purple-400",
     schools: [
-      { name: "බකමූණ මහසෙන් ම. වි", girls: 25, boys: 14, total26: 51, total25: 38, pass: "71.43" },
-      { name: "අත්තනකඩවල ම. වි", girls: 7, boys: 8, total26: 32, total25: 20, pass: "37.14" },
-      { name: "ඉරහඳ කෙටු වැව ම. වි", girls: 9, boys: 11, total26: 20, total25: 9, pass: "66.67" },
-      { name: "අත්තරගල්ලෑව ම. වි", girls: "-", boys: "-", total26: "-", total25: "-", pass: "71.43" },
+      { name: "බකමූණ මහසෙන් ම. වි", teachers: 2, girls: 25, boys: 14, total26: 51, total25: 38, pass: "71.43" },
+      { name: "අත්තනකඩවල ම. වි", teachers: 3, girls: 7, boys: 8, total26: 32, total25: 20, pass: "37.14" },
+      { name: "ඉරහඳ කෙටු වැව ම. වි", teachers: 2, girls: 9, boys: 11, total26: 20, total25: 9, pass: "66.67" },
+      { name: "අත්තරගල්ලෑව ම. වි", teachers: "-", girls: "-", boys: "-", total26: "-", total25: "-", pass: "71.43" },
     ]
   }
 ];
@@ -50,24 +50,25 @@ const divisionsData = [
 const rawDataSheet = [
   { name: "Hingurakgoda Zone", sat: [244, 185, 429], fail: [77, 99, 176], pass: [167, 86, 253], perc: ["68.44", "46.49", "58.97"], type: "zone" },
   { name: "Hingurakgoda Division", sat: [96, 52, 148], fail: [29, 24, 53], pass: [67, 28, 95], perc: ["69.79", "53.85", "64.19"], type: "div" },
-  { name: "PL/ANANDA BALIKA NAT", sat: [45, 0, 45], fail: [15, 0, 15], pass: [30, 0, 30], perc: ["66.67", "-", "66.67"], type: "school" },
-  { name: "PL/GIRITALEGAMA MAH", sat: [21, 21, 42], fail: [5, 11, 16], pass: [16, 10, 26], perc: ["76.19", "47.62", "61.90"], type: "school" },
-  { name: "PL/RAJARATA MAHA VID", sat: [21, 21, 42], fail: [7, 7, 14], pass: [14, 14, 28], perc: ["66.67", "66.67", "66.67"], type: "school" },
-  { name: "PL/MINNERIYA NATIONA", sat: [5, 8, 13], fail: [2, 5, 7], pass: [3, 3, 6], perc: ["60.00", "37.50", "46.15"], type: "school" },
-  { name: "PL/NAGALAKANDA MAH", sat: [4, 2, 6], fail: [0, 1, 1], pass: [4, 1, 5], perc: ["100.0", "50.00", "83.33"], type: "school" },
+  { name: "PL/ANANDA BALIKA NATIONAL COLLAGE", sat: [45, 0, 45], fail: [15, 0, 15], pass: [30, 0, 30], perc: ["66.67", "-", "66.67"], type: "school" },
+  { name: "PL/GIRITALEGAMA MAHA VIDYALAYA", sat: [21, 21, 42], fail: [5, 11, 16], pass: [16, 10, 26], perc: ["76.19", "47.62", "61.90"], type: "school" },
+  { name: "PL/RAJARATA MAHA VIDYALAYA", sat: [21, 21, 42], fail: [7, 7, 14], pass: [14, 14, 28], perc: ["66.67", "66.67", "66.67"], type: "school" },
+  { name: "PL/MINNERIYA NATIONAL COLLEGE", sat: [5, 8, 13], fail: [2, 5, 7], pass: [3, 3, 6], perc: ["60.00", "37.50", "46.15"], type: "school" },
+  { name: "PL/NAGALAKANDA MAHA VIDYALAYA", sat: [4, 2, 6], fail: [0, 1, 1], pass: [4, 1, 5], perc: ["100.0", "50.00", "83.33"], type: "school" },
   
   { name: "Medirigiriya Division", sat: [99, 88, 187], fail: [34, 49, 83], pass: [65, 39, 104], perc: ["65.66", "44.32", "55.61"], type: "div" },
-  { name: "PL/DIVULANKADAWALA", sat: [28, 25, 53], fail: [12, 14, 26], pass: [16, 11, 27], perc: ["57.14", "44.00", "50.94"], type: "school" },
-  { name: "PL/KAVUDULUWEWA M", sat: [7, 9, 16], fail: [5, 6, 11], pass: [2, 3, 5], perc: ["28.57", "33.33", "31.25"], type: "school" },
-  { name: "PL/KAVDULLA MAHA VID", sat: [7, 6, 13], fail: [1, 4, 5], pass: [6, 2, 8], perc: ["85.71", "33.33", "61.54"], type: "school" },
-  { name: "PL/MANDALAGIRI MAHA", sat: [1, 0, 1], fail: [0, 0, 0], pass: [1, 0, 1], perc: ["100.0", "-", "100.0"], type: "school" },
-  { name: "PL/VIJAYAPURA MAHA V", sat: [2, 4, 6], fail: [0, 2, 2], pass: [2, 2, 4], perc: ["100.0", "50.00", "66.67"], type: "school" },
+  { name: "PL/MEDIRIGIRIYA MADYA MAHA VIDYALAYA", sat: [54, 44, 98], fail: [16, 23, 39], pass: [38, 21, 59], perc: ["70.37", "47.73", "60.20"], type: "school" },
+  { name: "PL/DIVULANKADAWALA MAHA VIDYALAYA", sat: [28, 25, 53], fail: [12, 14, 26], pass: [16, 11, 27], perc: ["57.14", "44.00", "50.94"], type: "school" },
+  { name: "PL/KAVUDULUWEWA MAHA VIDYALAYA", sat: [7, 9, 16], fail: [5, 6, 11], pass: [2, 3, 5], perc: ["28.57", "33.33", "31.25"], type: "school" },
+  { name: "PL/KAVDULLA MAHA VIDYALAYA", sat: [7, 6, 13], fail: [1, 4, 5], pass: [6, 2, 8], perc: ["85.71", "33.33", "61.54"], type: "school" },
+  { name: "PL/MANDALAGIRI MAHA VIDYALAYA", sat: [1, 0, 1], fail: [0, 0, 0], pass: [1, 0, 1], perc: ["100.0", "-", "100.0"], type: "school" },
+  { name: "PL/VIJAYAPURA MAHA VIDYALAYA", sat: [2, 4, 6], fail: [0, 2, 2], pass: [2, 2, 4], perc: ["100.0", "50.00", "66.67"], type: "school" },
 
   { name: "Elahera Division", sat: [49, 45, 94], fail: [14, 26, 40], pass: [35, 19, 54], perc: ["71.43", "42.22", "57.45"], type: "div" },
-  { name: "PL/ATTANAKADAWALA M", sat: [18, 17, 35], fail: [9, 13, 22], pass: [9, 4, 13], perc: ["50.00", "23.53", "37.14"], type: "school" },
-  { name: "PL/BAKAMUNA MAHASEN", sat: [13, 15, 28], fail: [1, 7, 8], pass: [12, 8, 20], perc: ["92.31", "53.33", "71.43"], type: "school" },
-  { name: "PL/IRAHANDA KETU WEV", sat: [13, 11, 24], fail: [3, 5, 8], pass: [10, 6, 16], perc: ["76.92", "54.55", "66.67"], type: "school" },
-  { name: "PL/ATTARAGALLEWA MA", sat: [5, 2, 7], fail: [1, 1, 2], pass: [4, 1, 5], perc: ["80.00", "50.00", "71.43"], type: "school" }
+  { name: "PL/ATTANAKADAWALA MAHA VIDYALAYA", sat: [18, 17, 35], fail: [9, 13, 22], pass: [9, 4, 13], perc: ["50.00", "23.53", "37.14"], type: "school" },
+  { name: "PL/BAKAMUNA MAHASEN NATIONAL COLLEGE", sat: [13, 15, 28], fail: [1, 7, 8], pass: [12, 8, 20], perc: ["92.31", "53.33", "71.43"], type: "school" },
+  { name: "PL/IRAHANDA KETU WEVA MAHA VIDYALAYA", sat: [13, 11, 24], fail: [3, 5, 8], pass: [10, 6, 16], perc: ["76.92", "54.55", "66.67"], type: "school" },
+  { name: "PL/ATTARAGALLEWA MAHA VIDYALAYA", sat: [5, 2, 7], fail: [1, 1, 2], pass: [4, 1, 5], perc: ["80.00", "50.00", "71.43"], type: "school" }
 ];
 
 const containerVariants = {
@@ -407,6 +408,29 @@ export default function Schools() {
                     </div>
                   </div>
                 </div>
+
+                {/* Teachers Information */}
+                {selectedSchool.teachers !== undefined && (
+                  <motion.div 
+                    initial={{ opacity: 0, y: 10 }}
+                    animate={{ opacity: 1, y: 0 }}
+                    transition={{ delay: 0.1 }}
+                    className="flex flex-row items-center justify-between px-6 py-4 border shadow-inner bg-black/40 rounded-2xl border-white/10"
+                  >
+                    <div className="flex flex-row items-center space-x-4">
+                      <div className="flex items-center justify-center w-10 h-10 border rounded-full bg-emerald-500/10 border-emerald-500/20">
+                        <Users className="w-5 h-5 text-emerald-400" />
+                      </div>
+                      <div className="flex flex-col">
+                        <span className="text-base font-medium text-slate-300">ගුරු තොරතුරු</span>
+                        <span className="text-[10px] tracking-wider uppercase text-slate-500">Teachers Information</span>
+                      </div>
+                    </div>
+                    <div className={`text-3xl font-black drop-shadow-lg ${selectedSchool.teachers === '-' ? 'text-slate-500' : 'text-emerald-400'}`}>
+                      {selectedSchool.teachers}
+                    </div>
+                  </motion.div>
+                )}
 
               </motion.div>
             </motion.div>
