@@ -31,7 +31,7 @@ const itemVariants = {
 
 export default function Zone() {
   return (
-    <div className="min-h-screen bg-background pt-16 pb-20 px-4 md:px-8">
+    <div className="min-h-screen px-4 pt-16 pb-20 bg-background md:px-8">
       {/* Page Title Header */}
       <motion.div
         initial={{ opacity: 0, y: -20, filter: "blur(10px)" }}
@@ -42,7 +42,7 @@ export default function Zone() {
         <h1 className="text-6xl md:text-8xl font-black bg-gradient-to-br from-rose-400 to-orange-400 bg-clip-text text-transparent drop-shadow-[0_0_20px_rgba(251,113,133,0.3)] mb-4 tracking-tight">
           හිගුරක්ගොඩ කලාපය
         </h1>
-        <p className="text-slate-400 text-xl font-medium tracking-wide">(Hingurakgoda Educational Zone)</p>
+        <p className="text-xl font-medium tracking-wide text-slate-400">(Hingurakgoda Educational Zone)</p>
       </motion.div>
 
       <motion.div
@@ -61,15 +61,14 @@ export default function Zone() {
           <div className={`absolute -right-20 -top-20 w-[400px] h-[400px] bg-gradient-to-br ${mainStat.color} opacity-10 rounded-full blur-[80px] pointer-events-none`} />
           <div className={`absolute -left-20 -bottom-20 w-[300px] h-[300px] bg-gradient-to-tr ${mainStat.color} opacity-10 rounded-full blur-[60px] pointer-events-none`} />
 
-          <div className="z-10 relative mb-8 md:mb-0">
-            <h2 className="text-4xl md:text-5xl font-extrabold text-white mb-6 tracking-wide drop-shadow-md">
+          <div className="relative z-10 mb-8 md:mb-0">
+            <h2 className="mb-6 text-4xl font-extrabold tracking-wide text-white md:text-5xl drop-shadow-md">
               සමස්ත ප්‍රතිශතය
             </h2>
-            <div className="flex items-center justify-center md:justify-start space-x-4 text-slate-300">
+            <div className="flex items-center justify-center space-x-4 md:justify-start text-slate-300">
               <div className={`p-4 rounded-2xl bg-gradient-to-br ${mainStat.color} bg-opacity-20 shadow-[0_0_15px_rgba(0,0,0,0.5)]`}>
                 <Target className="w-8 h-8 text-white" />
               </div>
-              <span className="text-2xl font-semibold">මධ්‍යක ප්‍රගතිය</span>
             </div>
           </div>
 
@@ -82,7 +81,7 @@ export default function Zone() {
         </motion.div>
 
         {/* Divisions Data Grid */}
-        <div className="grid grid-cols-1 md:grid-cols-3 gap-8">
+        <div className="grid grid-cols-1 gap-8 md:grid-cols-3">
           {subStats.map((stat) => (
             <motion.div
               key={stat.region}
@@ -97,12 +96,12 @@ export default function Zone() {
                 <MapPin className={`w-10 h-10 ${stat.text}`} />
               </div>
 
-              <h3 className="text-3xl font-bold text-white mb-6 z-10 relative tracking-wide drop-shadow-sm">
+              <h3 className="relative z-10 mb-6 text-3xl font-bold tracking-wide text-white drop-shadow-sm">
                 {stat.region}
               </h3>
 
               <div className={`flex items-baseline space-x-1 ${stat.text} z-10 relative`}>
-                <span className="text-6xl font-black drop-shadow-lg tabular-nums tracking-tight">{stat.performance}</span>
+                <span className="text-6xl font-black tracking-tight drop-shadow-lg tabular-nums">{stat.performance}</span>
                 <span className="text-3xl font-bold opacity-80">%</span>
               </div>
             </motion.div>

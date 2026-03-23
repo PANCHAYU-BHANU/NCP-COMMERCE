@@ -95,26 +95,26 @@ export default function Schools() {
   }, [selectedSchool]);
 
   return (
-    <div className="min-h-screen bg-background pt-8 pb-32 px-4 md:px-8 relative">
+    <div className="relative min-h-screen px-4 pt-8 pb-32 bg-background md:px-8">
       {/* Title */}
       <motion.div 
         initial={{ opacity: 0, y: -20 }}
         animate={{ opacity: 1, y: 0 }}
-        className="max-w-7xl mx-auto mb-16 text-center"
+        className="mx-auto mb-16 text-center max-w-7xl"
       >
-        <h1 className="text-5xl md:text-7xl font-black bg-gradient-to-r from-blue-400 to-cyan-400 bg-clip-text text-transparent drop-shadow-lg mb-4">
+        <h1 className="mb-4 text-5xl font-black text-transparent md:text-7xl bg-gradient-to-r from-blue-400 to-cyan-400 bg-clip-text drop-shadow-lg">
           පාසල් දත්ත
         </h1>
-        <p className="text-slate-400 text-lg md:text-xl">කොට්ඨාස මට්ටමින් පාසල් වල ප්‍රගතිය (School Progress by Division)</p>
+        <p className="text-lg text-slate-400 md:text-xl">කොට්ඨාස මට්ටමින් පාසල් වල ප්‍රගතිය (School Progress by Division)</p>
       </motion.div>
 
-      <div className="max-w-7xl mx-auto flex flex-col items-center">
+      <div className="flex flex-col items-center mx-auto max-w-7xl">
         {/* Divisions Selector */}
         <motion.div 
           variants={containerVariants}
           initial="hidden"
           animate="show"
-          className="grid grid-cols-1 md:grid-cols-3 gap-6 w-full mb-12"
+          className="grid w-full grid-cols-1 gap-6 mb-12 md:grid-cols-3"
         >
           {divisionsData.map((division) => (
             <motion.button
@@ -130,8 +130,8 @@ export default function Schools() {
               <div className={`p-4 rounded-full bg-white/5 mb-4 border ${division.border} shadow-inner`}>
                 <GraduationCap className={`w-10 h-10 ${division.text}`} />
               </div>
-              <h3 className="text-2xl font-bold text-white mb-2">{division.name}</h3>
-              <div className="flex items-center text-slate-400 space-x-2">
+              <h3 className="mb-2 text-2xl font-bold text-white">{division.name}</h3>
+              <div className="flex items-center space-x-2 text-slate-400">
                 <span className="text-sm">විස්තර බලන්න හැඩගස්වන්න</span>
                 <motion.div animate={{ rotate: activeDivision === division.id ? 180 : 0 }}>
                   <ChevronDown className="w-4 h-4" />
@@ -150,18 +150,18 @@ export default function Schools() {
               animate={{ opacity: 1, height: 'auto', filter: "blur(0px)" }}
               exit={{ opacity: 0, height: 0, filter: "blur(10px)" }}
               transition={{ duration: 0.4, type: 'spring', bounce: 0.2 }}
-              className="w-full overflow-hidden mb-16"
+              className="w-full mb-16 overflow-hidden"
             >
               <div className="bg-surface/50 border border-white/10 rounded-[2rem] p-6 md:p-10 shadow-2xl backdrop-blur-md">
                 
                 {divisionsData.filter(d => d.id === activeDivision).map(division => (
                   <div key={division.id} className="w-full">
-                    <div className="flex items-center space-x-4 mb-8">
+                    <div className="flex items-center mb-8 space-x-4">
                       <BookOpen className={`w-8 h-8 ${division.text}`} />
                       <h2 className="text-3xl font-bold text-white">{division.name} පාසල් ලැයිස්තුව</h2>
                     </div>
 
-                    <div className="grid grid-cols-1 xl:grid-cols-2 gap-6">
+                    <div className="grid grid-cols-1 gap-6 xl:grid-cols-2">
                       {division.schools.map((school, idx) => (
                         <motion.div 
                           layoutId={`card-${school.name}`}
@@ -170,12 +170,12 @@ export default function Schools() {
                           animate={{ opacity: 1, x: 0 }}
                           transition={{ delay: idx * 0.1 }}
                           onClick={() => setSelectedSchool({ ...school, divisionColor: division.color, divisionText: division.text, divisionName: division.name })}
-                          className="bg-white/5 border border-white/10 rounded-2xl p-6 hover:bg-white/10 transition-all duration-300 cursor-pointer hover:border-white/30 group"
+                          className="p-6 transition-all duration-300 border cursor-pointer bg-white/5 border-white/10 rounded-2xl hover:bg-white/10 hover:border-white/30 group"
                         >
-                          <div className="flex justify-between items-start mb-6">
-                            <motion.h3 layoutId={`title-${school.name}`} className="text-2xl font-bold text-slate-100 group-hover:text-white transition-colors">{school.name}</motion.h3>
+                          <div className="flex items-start justify-between mb-6">
+                            <motion.h3 layoutId={`title-${school.name}`} className="text-2xl font-bold transition-colors text-slate-100 group-hover:text-white">{school.name}</motion.h3>
                             <div className="flex flex-col items-end">
-                              <span className="text-xs text-slate-400 mb-1 uppercase tracking-wider">Pass % (Commerce)</span>
+                              <span className="mb-1 text-xs tracking-wider uppercase text-slate-400">Pass % (Commerce)</span>
                               <motion.span layoutId={`pass-${school.name}`} className={`text-2xl font-black ${school.pass === 'N/A' ? 'text-slate-500' : division.text}`}>
                                 {school.pass}{school.pass !== 'N/A' && '%'}
                               </motion.span>
@@ -184,31 +184,31 @@ export default function Schools() {
 
                           <motion.div layoutId={`content-${school.name}`} className="grid grid-cols-2 gap-4">
                             {/* 2027 Projected Students */}
-                            <div className="bg-black/30 p-4 rounded-xl border border-white/5">
-                              <div className="text-sm text-slate-400 mb-3 font-medium">2027 (A/L) සිසුන් සංඛ්‍යාව</div>
-                              <div className="flex justify-between items-center">
+                            <div className="p-4 border bg-black/30 rounded-xl border-white/5">
+                              <div className="mb-3 text-sm font-medium text-slate-400">2027 (A/L) සිසුන් සංඛ්‍යාව</div>
+                              <div className="flex items-center justify-between">
                                 <div className="text-center">
                                   <div className="text-xl font-bold text-pink-400">{school.girls}</div>
-                                  <div className="text-xs text-slate-500 mt-1">ගැහැණු</div>
+                                  <div className="mt-1 text-xs text-slate-500">ගැහැණු</div>
                                 </div>
                                 <div className="text-center">
                                   <div className="text-xl font-bold text-blue-400">{school.boys}</div>
-                                  <div className="text-xs text-slate-500 mt-1">පිරිමි</div>
+                                  <div className="mt-1 text-xs text-slate-500">පිරිමි</div>
                                 </div>
                               </div>
                             </div>
 
                             {/* Total Historical Students */}
-                            <div className="bg-black/30 p-4 rounded-xl border border-white/5">
-                              <div className="text-sm text-slate-400 mb-3 font-medium">මුළු සිසුන් (Total)</div>
-                              <div className="flex justify-between items-center">
+                            <div className="p-4 border bg-black/30 rounded-xl border-white/5">
+                              <div className="mb-3 text-sm font-medium text-slate-400">මුළු සිසුන් (Total)</div>
+                              <div className="flex items-center justify-between">
                                 <div className="text-center">
                                   <div className="text-xl font-bold text-amber-400">{school.total26}</div>
-                                  <div className="text-xs text-slate-500 mt-1">2026</div>
+                                  <div className="mt-1 text-xs text-slate-500">2026</div>
                                 </div>
                                 <div className="text-center">
                                   <div className="text-xl font-bold text-slate-300">{school.total25}</div>
-                                  <div className="text-xs text-slate-500 mt-1">2025</div>
+                                  <div className="mt-1 text-xs text-slate-500">2025</div>
                                 </div>
                               </div>
                             </div>
@@ -238,38 +238,38 @@ export default function Schools() {
           <div className="flex items-center justify-between mb-8">
             <div className="flex items-center space-x-4">
               <Table2 className="w-8 h-8 text-emerald-400" />
-              <h2 className="text-2xl md:text-3xl font-bold text-white">Full Commerce Results Breakdown</h2>
+              <h2 className="text-2xl font-bold text-white md:text-3xl">Full Commerce Results Breakdown</h2>
             </div>
             {visibleTableRows < rawDataSheet.length && (
-              <p className="text-sm text-emerald-400/80 font-bold animate-pulse">
+              <p className="text-sm font-bold text-emerald-400/80 animate-pulse">
                 (Click to reveal table rows)
               </p>
             )}
           </div>
 
           <div className="overflow-x-auto">
-            <table className="w-full text-center border-collapse text-sm md:text-base pointer-events-none">
-              <thead className="bg-black/40 text-slate-300 border border-white/10">
+            <table className="w-full text-sm text-center border-collapse pointer-events-none md:text-base">
+              <thead className="border bg-black/40 text-slate-300 border-white/10">
                 <tr>
                   <th rowSpan="2" className="p-4 border border-white/10 text-left font-bold text-emerald-300 min-w-[200px] uppercase">ZONE / SCHOOL</th>
-                  <th colSpan="3" className="p-2 border border-white/10 font-bold text-blue-200">SAT</th>
-                  <th colSpan="3" className="p-2 border border-white/10 font-bold text-rose-300">FAIL</th>
-                  <th colSpan="3" className="p-2 border border-white/10 font-bold text-amber-200">PASS</th>
-                  <th colSpan="3" className="p-2 border border-white/10 font-bold text-emerald-400">PASS %</th>
+                  <th colSpan="3" className="p-2 font-bold text-blue-200 border border-white/10">SAT</th>
+                  <th colSpan="3" className="p-2 font-bold border border-white/10 text-rose-300">FAIL</th>
+                  <th colSpan="3" className="p-2 font-bold border border-white/10 text-amber-200">PASS</th>
+                  <th colSpan="3" className="p-2 font-bold border border-white/10 text-emerald-400">PASS %</th>
                 </tr>
-                <tr className="text-slate-400 text-xs md:text-sm">
+                <tr className="text-xs text-slate-400 md:text-sm">
                   <th className="p-2 border border-white/10">F</th>
                   <th className="p-2 border border-white/10">M</th>
-                  <th className="p-2 border border-white/10 font-bold text-white">Total</th>
+                  <th className="p-2 font-bold text-white border border-white/10">Total</th>
                   <th className="p-2 border border-white/10">F</th>
                   <th className="p-2 border border-white/10">M</th>
-                  <th className="p-2 border border-white/10 font-bold text-white">Total</th>
+                  <th className="p-2 font-bold text-white border border-white/10">Total</th>
                   <th className="p-2 border border-white/10">F</th>
                   <th className="p-2 border border-white/10">M</th>
-                  <th className="p-2 border border-white/10 font-bold text-white">Total</th>
+                  <th className="p-2 font-bold text-white border border-white/10">Total</th>
                   <th className="p-2 border border-white/10">F</th>
                   <th className="p-2 border border-white/10">M</th>
-                  <th className="p-2 border border-white/10 font-bold text-emerald-400">Total</th>
+                  <th className="p-2 font-bold border border-white/10 text-emerald-400">Total</th>
                 </tr>
               </thead>
               <tbody>
@@ -282,27 +282,27 @@ export default function Schools() {
                       transition={{ type: 'spring', stiffness: 100 }}
                       className={`transition-colors duration-200 ${row.type === 'zone' ? 'bg-emerald-900/30 font-bold text-white' : row.type === 'div' ? 'bg-blue-900/20 font-bold text-slate-100' : 'hover:bg-white/5 text-slate-300'}`}
                     >
-                      <td className="p-3 border border-white/10 text-left">{row.name}</td>
+                      <td className="p-3 text-left border border-white/10">{row.name}</td>
                       
                       {/* SAT */}
                       <td className="p-3 border border-white/10">{row.sat[0]}</td>
                       <td className="p-3 border border-white/10">{row.sat[1]}</td>
-                      <td className="p-3 border border-white/10 font-bold bg-white/5">{row.sat[2]}</td>
+                      <td className="p-3 font-bold border border-white/10 bg-white/5">{row.sat[2]}</td>
                       
                       {/* FAIL */}
                       <td className="p-3 border border-white/10 text-rose-300/70">{row.fail[0]}</td>
                       <td className="p-3 border border-white/10 text-rose-300/70">{row.fail[1]}</td>
-                      <td className="p-3 border border-white/10 font-bold bg-white/5 text-rose-300/90">{row.fail[2]}</td>
+                      <td className="p-3 font-bold border border-white/10 bg-white/5 text-rose-300/90">{row.fail[2]}</td>
                       
                        {/* PASS */}
                       <td className="p-3 border border-white/10 text-amber-200/70">{row.pass[0]}</td>
                       <td className="p-3 border border-white/10 text-amber-200/70">{row.pass[1]}</td>
-                      <td className="p-3 border border-white/10 font-bold bg-white/5 text-amber-200/90">{row.pass[2]}</td>
+                      <td className="p-3 font-bold border border-white/10 bg-white/5 text-amber-200/90">{row.pass[2]}</td>
                       
                       {/* PASS % */}
                       <td className="p-3 border border-white/10 text-emerald-400/80">{row.perc[0]}</td>
                       <td className="p-3 border border-white/10 text-emerald-400/80">{row.perc[1]}</td>
-                      <td className="p-3 border border-white/10 font-black bg-emerald-900/20 text-emerald-400">{row.perc[2]}</td>
+                      <td className="p-3 font-black border border-white/10 bg-emerald-900/20 text-emerald-400">{row.perc[2]}</td>
                     </motion.tr>
                   ))}
                 </AnimatePresence>
@@ -310,7 +310,7 @@ export default function Schools() {
             </table>
 
             {visibleTableRows === 0 && (
-              <div className="py-20 text-center text-slate-400 text-xl flex flex-col items-center gap-4">
+              <div className="flex flex-col items-center gap-4 py-20 text-xl text-center text-slate-400">
                 <span className="text-4xl">👆</span>
                 Click anywhere inside this table area to load the detailed rows
               </div>
@@ -340,47 +340,47 @@ export default function Schools() {
               {/* Close Button */}
               <button 
                 onClick={() => setSelectedSchool(null)}
-                className="absolute top-6 right-6 p-2 text-slate-400 hover:text-white bg-white/5 hover:bg-white/10 rounded-full transition-colors z-20"
+                className="absolute z-20 p-2 transition-colors rounded-full top-6 right-6 text-slate-400 hover:text-white bg-white/5 hover:bg-white/10"
               >
                 <X className="w-6 h-6" />
               </button>
 
-              <div className="mb-8 z-10 relative">
+              <div className="relative z-10 mb-8">
                 <div className={`inline-flex items-center space-x-2 px-4 py-2 rounded-full bg-white/5 border border-white/10 mb-4 ${selectedSchool.divisionText}`}>
                   <School className="w-4 h-4" />
-                  <span className="text-sm font-bold uppercase tracking-wider">{selectedSchool.divisionName}</span>
+                  <span className="text-sm font-bold tracking-wider uppercase">{selectedSchool.divisionName}</span>
                 </div>
-                <motion.h3 layoutId={`title-${selectedSchool.name}`} className="text-4xl md:text-5xl font-black text-white leading-tight">
+                <motion.h3 layoutId={`title-${selectedSchool.name}`} className="text-4xl font-black leading-tight text-white md:text-5xl">
                   {selectedSchool.name}
                 </motion.h3>
               </div>
 
-              <motion.div layoutId={`content-${selectedSchool.name}`} className="space-y-6 z-10 relative">
+              <motion.div layoutId={`content-${selectedSchool.name}`} className="relative z-10 space-y-6">
                 
                 {/* Large Pass Rate Hero */}
-                <div className="flex flex-col md:flex-row items-center justify-between bg-black/40 p-8 rounded-3xl border border-white/10 shadow-inner">
-                  <div className="flex flex-col items-center md:items-start mb-4 md:mb-0">
-                    <span className="text-lg text-slate-400 font-medium mb-1">වාණිජ අංශයේ සමත් ප්‍රතිශතය</span>
-                    <span className="text-sm text-slate-500 uppercase tracking-widest">(Commerce Pass Rate)</span>
+                <div className="flex flex-col items-center justify-between p-8 border shadow-inner md:flex-row bg-black/40 rounded-3xl border-white/10">
+                  <div className="flex flex-col items-center mb-4 md:items-start md:mb-0">
+                    <span className="mb-1 text-lg font-medium text-slate-400">වාණිජ අංශයේ සමත් ප්‍රතිශතය</span>
+                    <span className="text-sm tracking-widest uppercase text-slate-500">(Commerce Pass Rate)</span>
                   </div>
                   <motion.span layoutId={`pass-${selectedSchool.name}`} className={`text-6xl md:text-7xl font-black drop-shadow-lg ${selectedSchool.pass === 'N/A' ? 'text-slate-500' : selectedSchool.divisionText}`}>
-                    {selectedSchool.pass}{selectedSchool.pass !== 'N/A' && <span className="text-4xl ml-1">%</span>}
+                    {selectedSchool.pass}{selectedSchool.pass !== 'N/A' && <span className="ml-1 text-4xl">%</span>}
                   </motion.span>
                 </div>
 
-                <div className="grid grid-cols-1 md:grid-cols-2 gap-6">
+                <div className="grid grid-cols-1 gap-6 md:grid-cols-2">
                   {/* Expanded 2027 Projected Students */}
-                  <div className="bg-black/30 p-6 rounded-2xl border border-white/5">
-                    <div className="text-slate-400 mb-6 font-medium text-center">2027 (A/L) සිසුන් සංඛ්‍යාව</div>
-                    <div className="flex justify-around items-center">
+                  <div className="p-6 border bg-black/30 rounded-2xl border-white/5">
+                    <div className="mb-6 font-medium text-center text-slate-400">2027 (A/L) සිසුන් සංඛ්‍යාව</div>
+                    <div className="flex items-center justify-around">
                       <div className="flex flex-col items-center">
-                        <div className="w-16 h-16 rounded-full bg-pink-500/10 flex items-center justify-center mb-3 border border-pink-500/20">
+                        <div className="flex items-center justify-center w-16 h-16 mb-3 border rounded-full bg-pink-500/10 border-pink-500/20">
                           <span className="text-3xl font-black text-pink-400">{selectedSchool.girls}</span>
                         </div>
                         <div className="text-sm text-slate-400">ගැහැණු (Girls)</div>
                       </div>
                       <div className="flex flex-col items-center">
-                        <div className="w-16 h-16 rounded-full bg-blue-500/10 flex items-center justify-center mb-3 border border-blue-500/20">
+                        <div className="flex items-center justify-center w-16 h-16 mb-3 border rounded-full bg-blue-500/10 border-blue-500/20">
                           <span className="text-3xl font-black text-blue-400">{selectedSchool.boys}</span>
                         </div>
                         <div className="text-sm text-slate-400">පිරිමි (Boys)</div>
@@ -389,20 +389,20 @@ export default function Schools() {
                   </div>
 
                   {/* Expanded Total Historical Students */}
-                  <div className="bg-black/30 p-6 rounded-2xl border border-white/5">
-                    <div className="text-slate-400 mb-6 font-medium text-center">මුළු සිසුන් (Total Students)</div>
-                    <div className="flex justify-around items-center">
+                  <div className="p-6 border bg-black/30 rounded-2xl border-white/5">
+                    <div className="mb-6 font-medium text-center text-slate-400">මුළු සිසුන් (Total Students)</div>
+                    <div className="flex items-center justify-around">
                       <div className="flex flex-col items-center">
-                        <div className="w-16 h-16 rounded-full bg-amber-500/10 flex items-center justify-center mb-3 border border-amber-500/20">
+                        <div className="flex items-center justify-center w-16 h-16 mb-3 border rounded-full bg-amber-500/10 border-amber-500/20">
                           <span className="text-3xl font-black text-amber-400">{selectedSchool.total26}</span>
                         </div>
-                        <div className="text-sm text-slate-400">2026 වර්ෂය</div>
+                        <div className="text-sm text-slate-400">2026</div>
                       </div>
                       <div className="flex flex-col items-center">
-                        <div className="w-16 h-16 rounded-full bg-slate-500/10 flex items-center justify-center mb-3 border border-slate-500/20">
+                        <div className="flex items-center justify-center w-16 h-16 mb-3 border rounded-full bg-slate-500/10 border-slate-500/20">
                           <span className="text-3xl font-black text-slate-300">{selectedSchool.total25}</span>
                         </div>
-                        <div className="text-sm text-slate-400">2025 වර්ෂය</div>
+                        <div className="text-sm text-slate-400">2025</div>
                       </div>
                     </div>
                   </div>

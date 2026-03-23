@@ -46,18 +46,18 @@ export default function NationalLevel() {
   }, [selectedId]);
 
   return (
-    <div className="min-h-screen bg-background pt-8 pb-20 px-4 md:px-8">
+    <div className="min-h-screen px-4 pt-8 pb-20 bg-background md:px-8">
       
       {/* Title */}
       <motion.div 
         initial={{ opacity: 0, y: -20 }}
         animate={{ opacity: 1, y: 0 }}
-        className="max-w-7xl mx-auto mb-16 text-center"
+        className="mx-auto mb-16 text-center max-w-7xl"
       >
-        <h1 className="text-5xl md:text-7xl font-black bg-gradient-to-r from-primary to-accent bg-clip-text text-transparent drop-shadow-lg mb-4">
+        <h1 className="mb-4 text-5xl font-black text-transparent md:text-7xl bg-gradient-to-r from-primary to-accent bg-clip-text drop-shadow-lg">
           ජාතික මට්ටම
         </h1>
-        <p className="text-slate-400 text-lg md:text-xl">කාර්ය සාධන විශ්ලේෂණය සහ ප්‍රගතිය (Performance Analysis)</p>
+        <p className="text-lg text-slate-400 md:text-xl">කාර්ය සාධන විශ්ලේෂණය සහ ප්‍රගතිය (Performance Analysis)</p>
       </motion.div>
 
       <motion.div 
@@ -65,10 +65,10 @@ export default function NationalLevel() {
         initial="hidden"
         whileInView="show"
         viewport={{ once: true, margin: "-50px" }}
-        className="max-w-7xl mx-auto space-y-16"
+        className="mx-auto space-y-16 max-w-7xl"
       >
         {/* Main Stats Grid */}
-        <div className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-4 gap-6">
+        <div className="grid grid-cols-1 gap-6 md:grid-cols-2 lg:grid-cols-4">
           {statsData.map((stat) => (
             <motion.div 
               layoutId={`card-${stat.region}`}
@@ -82,11 +82,11 @@ export default function NationalLevel() {
               {/* Background gradient glow */}
               <div className={`absolute -right-10 -top-10 w-32 h-32 bg-gradient-to-br ${stat.color} opacity-10 rounded-full blur-2xl pointer-events-none`} />
               
-              <motion.h3 layoutId={`title-${stat.region}`} className="text-2xl font-bold text-white mb-6 z-10 relative">
+              <motion.h3 layoutId={`title-${stat.region}`} className="relative z-10 mb-6 text-2xl font-bold text-white">
                 {stat.region}
               </motion.h3>
               
-              <motion.div layoutId={`content-${stat.region}`} className="space-y-4 z-10 relative">
+              <motion.div layoutId={`content-${stat.region}`} className="relative z-10 space-y-4">
                 <div className="flex items-center justify-between">
                   <div className="flex items-center space-x-2 text-slate-300">
                     <Users className="w-5 h-5 opacity-70" />
@@ -115,29 +115,29 @@ export default function NationalLevel() {
         {/* Yearly Comparison Section (Presentation Style) */}
         <motion.div 
           variants={itemVariants} 
-          className="bg-surface/50 rounded-3xl border border-white/5 p-6 md:p-10 shadow-2xl backdrop-blur-sm flex flex-col items-center w-full cursor-pointer relative hover:border-primary/30 transition-colors"
+          className="relative flex flex-col items-center w-full p-6 transition-colors border shadow-2xl cursor-pointer bg-surface/50 rounded-3xl border-white/5 md:p-10 backdrop-blur-sm hover:border-primary/30"
           onClick={() => {
             if (visibleRows < yearlyData.length) setVisibleRows(prev => prev + 1);
           }}
         >
-          <div className="flex items-center justify-center space-x-3 mb-10 w-full pointer-events-none">
+          <div className="flex items-center justify-center w-full mb-10 space-x-3 pointer-events-none">
             <BarChart3 className="w-8 h-8 text-primary" />
-            <h2 className="text-3xl md:text-4xl font-bold text-white">වාර්ෂික ප්‍රගති සැසඳීම</h2>
+            <h2 className="text-3xl font-bold text-white md:text-4xl">වාර්ෂික ප්‍රගති සැසඳීම</h2>
           </div>
           
           {visibleRows < yearlyData.length && (
-            <p className="absolute top-6 right-6 text-sm text-primary/70 font-semibold animate-pulse hidden md:block select-none pointer-events-none">
+            <p className="absolute hidden text-sm font-semibold pointer-events-none select-none top-6 right-6 text-primary/70 animate-pulse md:block">
               දත්ත ගෙන්වීමට මෙතන Click කරන්න<br/>(Click continuously to show data)
             </p>
           )}
 
-          <div className="overflow-x-auto w-full pointer-events-none">
+          <div className="w-full overflow-x-auto pointer-events-none">
             <table className="w-full text-center border-collapse">
               <thead>
                 <tr>
-                  <th className="p-4 text-xl text-slate-400 font-semibold border-b border-white/10">වර්ෂය (Year)</th>
-                  <th className="p-4 text-xl text-amber-400 font-bold border-b border-white/10">අනුරාධපුර</th>
-                  <th className="p-4 text-xl text-indigo-400 font-bold border-b border-white/10">පොළොන්නරුව</th>
+                  <th className="p-4 text-xl font-semibold border-b text-slate-400 border-white/10">වර්ෂය (Year)</th>
+                  <th className="p-4 text-xl font-bold border-b text-amber-400 border-white/10">අනුරාධපුර</th>
+                  <th className="p-4 text-xl font-bold text-indigo-400 border-b border-white/10">පොළොන්නරුව</th>
                 </tr>
               </thead>
               <tbody>
@@ -148,18 +148,18 @@ export default function NationalLevel() {
                       initial={{ opacity: 0, y: -20, filter: "blur(5px)" }}
                       animate={{ opacity: 1, y: 0, filter: "blur(0px)" }}
                       transition={{ type: 'spring', stiffness: 120 }}
-                      className="hover:bg-white/5 transition-colors duration-200"
+                      className="transition-colors duration-200 hover:bg-white/5"
                     >
                       <td className="p-5 border-b border-white/5">
-                        <span className="inline-block px-4 py-1 rounded-full bg-white/10 text-white font-bold tracking-wider">
+                        <span className="inline-block px-4 py-1 font-bold tracking-wider text-white rounded-full bg-white/10">
                           {row.year}
                         </span>
                       </td>
-                      <td className="p-5 border-b border-white/5 text-2xl font-semibold text-slate-200">
-                        {row.anu}{row.anu !== '?' && <span className="text-sm text-slate-500 ml-1">%</span>}
+                      <td className="p-5 text-2xl font-semibold border-b border-white/5 text-slate-200">
+                        {row.anu}{row.anu !== '?' && <span className="ml-1 text-sm text-slate-500">%</span>}
                       </td>
-                      <td className="p-5 border-b border-white/5 text-2xl font-semibold text-slate-200">
-                        {row.pol}{row.pol !== '?' && <span className="text-sm text-slate-500 ml-1">%</span>}
+                      <td className="p-5 text-2xl font-semibold border-b border-white/5 text-slate-200">
+                        {row.pol}{row.pol !== '?' && <span className="ml-1 text-sm text-slate-500">%</span>}
                       </td>
                     </motion.tr>
                   ))}
@@ -168,8 +168,8 @@ export default function NationalLevel() {
             </table>
             
             {visibleRows === 0 && (
-              <div className="py-16 text-center text-slate-400 text-2xl font-bold tracking-wide flex flex-col items-center gap-4 animate-bounce">
-                <span className="text-primary text-5xl">🖱️</span>
+              <div className="flex flex-col items-center gap-4 py-16 text-2xl font-bold tracking-wide text-center text-slate-400 animate-bounce">
+                <span className="text-5xl text-primary">🖱️</span>
                 Click anywhere inside this box to reveal the rows sequence!
               </div>
             )}
@@ -202,19 +202,19 @@ export default function NationalLevel() {
                 {/* Close Button */}
                 <button 
                   onClick={() => setSelectedId(null)}
-                  className="absolute top-6 right-6 p-2 text-slate-400 hover:text-white bg-white/5 hover:bg-white/10 rounded-full transition-colors z-20"
+                  className="absolute z-20 p-2 transition-colors rounded-full top-6 right-6 text-slate-400 hover:text-white bg-white/5 hover:bg-white/10"
                 >
                   <X className="w-6 h-6" />
                 </button>
 
-                <motion.h3 layoutId={`title-${stat.region}`} className="text-4xl md:text-5xl font-black text-white mb-10 z-10 relative">
+                <motion.h3 layoutId={`title-${stat.region}`} className="relative z-10 mb-10 text-4xl font-black text-white md:text-5xl">
                   {stat.region}
                 </motion.h3>
                 
-                <motion.div layoutId={`content-${stat.region}`} className="space-y-6 z-10 relative">
+                <motion.div layoutId={`content-${stat.region}`} className="relative z-10 space-y-6">
                   {/* Expanded Count Data */}
-                  <div className="flex flex-col md:flex-row items-start md:items-center justify-between bg-white/5 p-6 rounded-2xl border border-white/5">
-                    <div className="flex items-center space-x-4 text-slate-300 mb-4 md:mb-0">
+                  <div className="flex flex-col items-start justify-between p-6 border md:flex-row md:items-center bg-white/5 rounded-2xl border-white/5">
+                    <div className="flex items-center mb-4 space-x-4 text-slate-300 md:mb-0">
                       <div className={`p-4 rounded-2xl bg-gradient-to-br ${stat.color} bg-opacity-20 shadow-inner`}>
                          <Users className="w-8 h-8 text-white" />
                       </div>
@@ -224,15 +224,15 @@ export default function NationalLevel() {
                   </div>
 
                   {/* Expanded Performance Data */}
-                  <div className="flex flex-col md:flex-row items-start md:items-center justify-between bg-white/5 p-6 rounded-2xl border border-white/5">
-                    <div className="flex items-center space-x-4 text-slate-300 mb-4 md:mb-0">
+                  <div className="flex flex-col items-start justify-between p-6 border md:flex-row md:items-center bg-white/5 rounded-2xl border-white/5">
+                    <div className="flex items-center mb-4 space-x-4 text-slate-300 md:mb-0">
                       <div className={`p-4 rounded-2xl bg-gradient-to-br ${stat.color} bg-opacity-20 shadow-inner`}>
                          <Target className="w-8 h-8 text-white" />
                       </div>
                       <span className="text-xl font-medium">සාමාන්‍ය ප්‍රතිශතය</span>
                     </div>
                     <div className={`flex items-baseline space-x-1 ${stat.text}`}>
-                      <span className="text-7xl font-black drop-shadow-lg">{stat.performance}</span>
+                      <span className="font-black text-7xl drop-shadow-lg">{stat.performance}</span>
                       <span className="text-3xl font-bold">%</span>
                     </div>
                   </div>
