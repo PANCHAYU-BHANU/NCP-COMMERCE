@@ -2,7 +2,7 @@ import { Link, useLocation } from 'react-router-dom';
 import logoUrl from '../assets/logo.jpg';
 
 const navItems = [
-  { name: 'Home', path: '/' },
+  { name: 'Home', path: '/NCP-COMMERCE' },
   { name: 'ජාතික මට්ටම', path: '/national' },
   { name: 'හිගුරක්ගොඩ කළාපය', path: '/zone' },
   { name: 'පාසල්', path: '/schools' },
@@ -14,19 +14,19 @@ export default function Navbar() {
   const location = useLocation();
 
   return (
-    <nav className="fixed top-0 left-0 right-0 h-16 bg-surface/90 backdrop-blur-md border-b border-white/10 shadow-lg z-50 flex items-center px-4 w-full">
-      <div className="flex w-full max-w-7xl mx-auto items-center justify-between">
+    <nav className="fixed top-0 left-0 right-0 z-50 flex items-center w-full h-16 px-4 border-b shadow-lg bg-surface/90 backdrop-blur-md border-white/10">
+      <div className="flex items-center justify-between w-full mx-auto max-w-7xl">
         
         {/* Logo Section */}
-        <Link to="/" className="flex items-center space-x-3 shrink-0 mr-2 md:mr-8 hover:opacity-80 transition-opacity">
+        <Link to="/NCP-COMMERCE" className="flex items-center mr-2 space-x-3 transition-opacity shrink-0 md:mr-8 hover:opacity-80">
           <img src={logoUrl} alt="NCP Commerce Logo" className="h-10 w-10 md:h-12 md:w-12 rounded-full object-cover border border-primary/50 shadow-[0_0_10px_rgba(56,189,248,0.3)]" />
-          <span className="hidden lg:block font-bold text-white tracking-wide whitespace-nowrap">
+          <span className="hidden font-bold tracking-wide text-white lg:block whitespace-nowrap">
             Commerce <span className="text-primary">NCP</span>
           </span>
         </Link>
         
         {/* Nav Links */}
-        <div className="flex space-x-2 md:space-x-6 overflow-x-auto no-scrollbar w-full items-center justify-start md:justify-end">
+        <div className="flex items-center justify-start w-full space-x-2 overflow-x-auto md:space-x-6 no-scrollbar md:justify-end">
         {navItems.map((item) => {
           const isActive = location.pathname === item.path;
           return (
