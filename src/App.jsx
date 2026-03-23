@@ -1,6 +1,5 @@
 import { BrowserRouter as Router, Routes, Route } from 'react-router-dom';
 import Navbar from './components/Navbar';
-import Footer from './components/Footer';
 import Home from './pages/Home';
 import NationalLevel from './pages/NationalLevel';
 import Zone from './pages/Zone';
@@ -23,7 +22,6 @@ function App() {
             <Route path="/solutions" element={<Solutions />} />
           </Routes>
         </main>
-        <Footer />
       </div>
     </Router>
   );
