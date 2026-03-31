@@ -5,7 +5,9 @@ const navItems = [
   { name: 'Home', path: '/NCP-COMMERCE' },
   { name: 'ජාතික මට්ටම', path: '/national' },
   { name: 'හිගුරක්ගොඩ කළාපය', path: '/zone' },
-  { name: 'පාසල්', path: '/schools' },
+  { name: 'හිගුරක්ගොඩ පාසල්', path: '/schools' },
+  { name: 'දිඹුලාගල කළාපය', path: '/dimbulagala-zone' },
+  { name: 'දිඹුලාගල පාසල්', path: '/dimbulagala-schools' },
   { name: 'හදුනාගත් ගැටළු', path: '/issues' },
   { name: 'විසදුම් යෝජනා', path: '/solutions' },
 ];

@@ -4,6 +4,8 @@ import Home from './pages/Home';
 import NationalLevel from './pages/NationalLevel';
 import Zone from './pages/Zone';
 import Schools from './pages/Schools';
+import DimbulagalaZone from './pages/DimbulagalaZone';
+import DimbulagalaSchools from './pages/DimbulagalaSchools';
 import Issues from './pages/Issues';
 import Solutions from './pages/Solutions';
 
@@ -18,6 +20,8 @@ function App() {
             <Route path="/national" element={<NationalLevel />} />
             <Route path="/zone" element={<Zone />} />
             <Route path="/schools" element={<Schools />} />
+            <Route path="/dimbulagala-zone" element={<DimbulagalaZone />} />
+            <Route path="/dimbulagala-schools" element={<DimbulagalaSchools />} />
             <Route path="/issues" element={<Issues />} />
             <Route path="/solutions" element={<Solutions />} />
           </Routes>
