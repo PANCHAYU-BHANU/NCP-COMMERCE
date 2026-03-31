@@ -10,10 +10,10 @@ const divisionsData = [
     border: "border-emerald-500/30",
     text: "text-emerald-400",
     schools: [
-      { name: "ලීලාරත්න විජේසිංහ ම.වි", teachers: "-", girls: "-", boys: "-", total26: "-", total25: "-", pass: "100.00" },
-      { name: "නිකවත්ලන්ද ම.වි", teachers: 3, girls: "-", boys: "-", total26: 2, total25: 7, pass: "66.67" },
-      { name: "වෙහෙරගල ම.වි", teachers: 3, girls: "-", boys: "-", total26: 14, total25: 25, pass: "76.47" },
-      { name: "විලායාය ජාතික පාසල", teachers: 3, girls: "-", boys: "-", total26: 39, total25: 43, pass: "80.00" },
+      { name: "ලීලාරත්න විජේසිංහ ම.වි", teachers: "-", grade12: "-", grade13: "-", pass: "100.00" },
+      { name: "නිකවත්ලන්ද ම.වි", teachers: 3, grade12: 2, grade13: 7, pass: "66.67" },
+      { name: "වෙහෙරගල ම.වි", teachers: 3, grade12: 14, grade13: 25, pass: "76.47" },
+      { name: "විලායාය ජාතික පාසල", teachers: 3, grade12: 39, grade13: 43, pass: "80.00" },
     ]
   },
   {
@@ -23,10 +23,10 @@ const divisionsData = [
     border: "border-blue-500/30",
     text: "text-blue-400",
     schools: [
-      { name: "අසේලපුර ම.වි", teachers: "-", girls: "-", boys: "-", total26: "-", total25: "-", pass: "50.00" },
-      { name: "නෙළුම්වැව ම.වි", teachers: "-", girls: "-", boys: "-", total26: "-", total25: "-", pass: "50.00" },
-      { name: "සෙවනපිටිය ම.වි", teachers: 4, girls: "-", boys: "-", total26: 10, total25: 18, pass: "75.00" },
-      { name: "වැලිකන්ද ම.වි", teachers: 2, girls: "-", boys: "-", total26: 16, total25: 14, pass: "87.50" },
+      { name: "අසේලපුර ම.වි", teachers: "-", grade12: "-", grade13: "-", pass: "50.00" },
+      { name: "නෙළුම්වැව ම.වි", teachers: "-", grade12: "-", grade13: "-", pass: "50.00" },
+      { name: "සෙවනපිටිය ම.වි", teachers: 4, grade12: 10, grade13: 18, pass: "75.00" },
+      { name: "වැලිකන්ද ම.වි", teachers: 2, grade12: 16, grade13: 14, pass: "87.50" },
     ]
   },
   {
@@ -36,10 +36,10 @@ const divisionsData = [
     border: "border-purple-500/30",
     text: "text-purple-400",
     schools: [
-      { name: "මනම්පිටිය සිංහල ම.වි", teachers: 2, girls: "-", boys: "-", total26: 2, total25: 5, pass: "22.22" },
-      { name: "මනම්පිටිය දෙමළ ම.වි", teachers: "-", girls: "-", boys: "-", total26: "-", total25: "-", pass: "0.00" },
-      { name: "සිරිපුර ම.ම.වි", teachers: 3, girls: "-", boys: "-", total26: 48, total25: 54, pass: "66.67" },
-      { name: "මඟුල්දමන ම.වි", teachers: "-", girls: "-", boys: "-", total26: "-", total25: "-", pass: "30.00" },
+      { name: "මනම්පිටිය සිංහල ම.වි", teachers: 2, grade12: 2, grade13: 5, pass: "22.22" },
+      { name: "මනම්පිටිය දෙමළ ම.වි", teachers: "-", grade12: "-", grade13: "-", pass: "0.00" },
+      { name: "සිරිපුර ම.ම.වි", teachers: 3, grade12: 48, grade13: 54, pass: "66.67" },
+      { name: "මඟුල්දමන ම.වි", teachers: "-", grade12: "-", grade13: "-", pass: "30.00" },
     ]
   }
 ];
@@ -179,33 +179,21 @@ export default function DimbulagalaSchools() {
                           </div>
 
                           <motion.div layoutId={`content-${school.name}`} className="grid grid-cols-2 gap-4">
-                            {/* 2027 Projected Students */}
+                            {/* 12th Grade */}
                             <div className="p-4 border bg-black/30 rounded-xl border-white/5">
-                              <div className="mb-3 text-sm font-medium text-slate-400">2027 (A/L) සිසුන් සංඛ්‍යාව</div>
-                              <div className="flex items-center justify-between">
-                                <div className="text-center">
-                                  <div className="text-xl font-bold text-pink-400">{school.girls}</div>
-                                  <div className="mt-1 text-xs text-slate-500">ගැහැණු</div>
-                                </div>
-                                <div className="text-center">
-                                  <div className="text-xl font-bold text-blue-400">{school.boys}</div>
-                                  <div className="mt-1 text-xs text-slate-500">පිරිමි</div>
-                                </div>
+                              <div className="mb-3 text-sm font-medium text-slate-400 text-center">2027 (A/L) සිසුන්</div>
+                              <div className="flex flex-col items-center justify-center">
+                                <div className="text-2xl font-bold text-pink-400">{school.grade12 !== undefined ? school.grade12 : '-'}</div>
+                                <div className="mt-1 text-xs text-slate-500">12 ශ්‍රේණිය</div>
                               </div>
                             </div>
 
-                            {/* Total Historical Students */}
+                            {/* 13th Grade */}
                             <div className="p-4 border bg-black/30 rounded-xl border-white/5">
-                              <div className="mb-3 text-sm font-medium text-slate-400">මුළු සිසුන් (Total)</div>
-                              <div className="flex items-center justify-between">
-                                <div className="text-center">
-                                  <div className="text-xl font-bold text-amber-400">{school.total26}</div>
-                                  <div className="mt-1 text-xs text-slate-500">2026</div>
-                                </div>
-                                <div className="text-center">
-                                  <div className="text-xl font-bold text-slate-300">{school.total25}</div>
-                                  <div className="mt-1 text-xs text-slate-500">2025</div>
-                                </div>
+                              <div className="mb-3 text-sm font-medium text-slate-400 text-center">2026 (A/L) සිසුන්</div>
+                              <div className="flex flex-col items-center justify-center">
+                                <div className="text-2xl font-bold text-blue-400">{school.grade13 !== undefined ? school.grade13 : '-'}</div>
+                                <div className="mt-1 text-xs text-slate-500">13 ශ්‍රේණිය</div>
                               </div>
                             </div>
                           </motion.div>
@@ -365,40 +353,26 @@ export default function DimbulagalaSchools() {
                 </div>
 
                 <div className="grid grid-cols-1 gap-6 md:grid-cols-2">
-                  {/* Expanded 2027 Projected Students */}
                   <div className="p-6 border bg-black/30 rounded-2xl border-white/5">
-                    <div className="mb-6 font-medium text-center text-slate-400">2027 (A/L) සිසුන් සංඛ්‍යාව</div>
-                    <div className="flex items-center justify-around">
+                    <div className="mb-6 font-medium text-center text-slate-400">2027 (A/L) - 12 ශ්‍රේණිය</div>
+                    <div className="flex items-center justify-center">
                       <div className="flex flex-col items-center">
-                        <div className="flex items-center justify-center w-16 h-16 mb-3 border rounded-full bg-pink-500/10 border-pink-500/20">
-                          <span className="text-3xl font-black text-pink-400">{selectedSchool.girls}</span>
+                        <div className="flex items-center justify-center w-20 h-20 mb-3 border rounded-full bg-pink-500/10 border-pink-500/20">
+                          <span className="text-4xl font-black text-pink-400">{selectedSchool.grade12 !== undefined ? selectedSchool.grade12 : '-'}</span>
                         </div>
-                        <div className="text-sm text-slate-400">ගැහැණු (Girls)</div>
-                      </div>
-                      <div className="flex flex-col items-center">
-                        <div className="flex items-center justify-center w-16 h-16 mb-3 border rounded-full bg-blue-500/10 border-blue-500/20">
-                          <span className="text-3xl font-black text-blue-400">{selectedSchool.boys}</span>
-                        </div>
-                        <div className="text-sm text-slate-400">පිරිමි (Boys)</div>
+                        <div className="text-sm text-slate-400">සිසුන් සංඛ්‍යාව</div>
                       </div>
                     </div>
                   </div>
 
-                  {/* Expanded Total Historical Students */}
                   <div className="p-6 border bg-black/30 rounded-2xl border-white/5">
-                    <div className="mb-6 font-medium text-center text-slate-400">මුළු සිසුන් (Total Students)</div>
-                    <div className="flex items-center justify-around">
+                    <div className="mb-6 font-medium text-center text-slate-400">2026 (A/L) - 13 ශ්‍රේණිය</div>
+                    <div className="flex items-center justify-center">
                       <div className="flex flex-col items-center">
-                        <div className="flex items-center justify-center w-16 h-16 mb-3 border rounded-full bg-amber-500/10 border-amber-500/20">
-                          <span className="text-3xl font-black text-amber-400">{selectedSchool.total26}</span>
+                        <div className="flex items-center justify-center w-20 h-20 mb-3 border rounded-full bg-blue-500/10 border-blue-500/20">
+                          <span className="text-4xl font-black text-blue-400">{selectedSchool.grade13 !== undefined ? selectedSchool.grade13 : '-'}</span>
                         </div>
-                        <div className="text-sm text-slate-400">2026</div>
-                      </div>
-                      <div className="flex flex-col items-center">
-                        <div className="flex items-center justify-center w-16 h-16 mb-3 border rounded-full bg-slate-500/10 border-slate-500/20">
-                          <span className="text-3xl font-black text-slate-300">{selectedSchool.total25}</span>
-                        </div>
-                        <div className="text-sm text-slate-400">2025</div>
+                        <div className="text-sm text-slate-400">සිසුන් සංඛ්‍යාව</div>
                       </div>
                     </div>
                   </div>
